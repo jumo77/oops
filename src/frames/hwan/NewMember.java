@@ -103,6 +103,7 @@ class NewMember extends JFrame implements ActionListener { //회원가입은 인
             }
         } else if (s.equals("확인")) {
             ResultSet rs = null;
+            rs = Main.db.query("");//sql명령문으로 데이터 추가 명령문 코딩하기
         }
     }
 }
