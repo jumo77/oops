@@ -4,38 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-class Register extends JFrame implements ActionListener {
-    JTextField cNum, name, phoneNum, address;
+class NewMember extends JFrame implements ActionListener { //회원가입은 인사관리 창에서 사용할 예정
+    JTextField companynumber, name, tel_number, address, passwd; //회원가입 전화번호를 넣을지 뺄지 고민
     JPasswordField pwd;
-    String phoneHeads[] = {"010", "02", "031", "042", "070"};
+    String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel;
     JButton check, b1, b2;
 
-    Register(String title) {
+    NewMember(String title) {
         setTitle(title);
         Container ct = getContentPane();
 
         ct.setLayout(new BorderLayout(0, 20));
         JPanel top = new JPanel();
-        top.setLayout(new GridLayout(5, 2));
-
+        top.setLayout(new GridLayout(5, 1));
         JPanel p1 = new JPanel();
         p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+
         JLabel l1 = new JLabel("사번        :"); // ID 중복 체크 버튼을 없앨지 고민
-        cNum = new JTextField(8);
+        companynumber = new JTextField(8);
         check = new JButton("사번 중복 체크");
         check.addActionListener(this);
         p1.add(l1);
-        p1.add(cNum);
+        p1.add(companynumber);
         p1.add(check);
 
         Panel p2 = new Panel();
         p2.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l2 = new JLabel("비밀번호 :");
-        pwd = new JPasswordField(20);
+        JLabel l2 = new JLabel("Password :");
+        passwd = new JPasswordField(20);
         p2.add(l2);
-        p2.add(pwd);
+        p2.add(passwd);
 
         JPanel p3 = new JPanel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -47,11 +49,11 @@ class Register extends JFrame implements ActionListener {
         JPanel p4 = new JPanel();
         p4.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel l4 = new JLabel("연락처     :");
-        tel = new JComboBox(phoneHeads);
-        phoneNum = new JTextField(10);
+        tel = new JComboBox(code);
+        tel_number = new JTextField(10);
         p4.add(l4);
         p4.add(tel);
-        p4.add(phoneNum);
+        p4.add(tel_number);
 
         JPanel p5 = new JPanel();
         p5.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -74,6 +76,7 @@ class Register extends JFrame implements ActionListener {
         b2.addActionListener(this);
         bottom.add(b1);
         bottom.add(b2);
+        b1.setEnabled(false);
         ct.add(bottom, BorderLayout.SOUTH);
     }
 
@@ -81,11 +84,25 @@ class Register extends JFrame implements ActionListener {
         String s = ae.getActionCommand();
         if (s.equals("취소")) {
             this.dispose();
-        } else if (s.equals("ID 중복 체크")) { //ID 중복 체크는 사번 중복 체크로 이름을 바꾸면 됨 또한 버튼 or 최종 생성 시 중복 체크를 하게 해도 됨
-            MessageDialog md = new MessageDialog(this, "사번 중복 체크", true, "사용할 수 있는 사번입니다.");
-            md.show();
-        } else {
+        } else if (s.equals("사번 중복 체크")) {
+            ResultSet rs = Main.db.query("select * from team_work.employee where emp_num = " + companynumber.getText());
+            try {
+                if(!rs.isBeforeFirst()) {
+                    MessageDialog md = new MessageDialog(this, "사번 중복 체크", true, "사용할 수 있는 사번입니다.");
+                    md.setLocation(900,300);
+                    md.show();
+                    b1.setEnabled(true);
+                } else {
+                    MessageDialog md = new MessageDialog(this, "사번 중복 체크", true, "사용할 수 없는 사번입니다.");
+                    md.setLocation(900,300);
+                    md.show();
+                    b1.setEnabled(false);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (s.equals("확인")) {
+            ResultSet rs = null;
         }
     }
 }
-
