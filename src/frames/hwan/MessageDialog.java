@@ -26,4 +26,3 @@ class MessageDialog extends JDialog implements ActionListener {
         dispose();
     }
 }
-
