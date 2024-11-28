@@ -1,5 +1,6 @@
 import data.DBMS;
 import frames.hwan.Login;
+import frames.hwan.ManageEmp;
 import frames.hwan.NewMember;
 
 import javax.swing.*;
@@ -19,5 +20,11 @@ public class OOPPApplication {
         win2.setSize(370, 400);
         win2.setLocation(800, 200);
         win2.setVisible(true);
+
+        ManageEmp win3 = new ManageEmp("인사관리");
+        win3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        win3.setSize(800, 700);
+        win3.setLocation(100, 200);
+        win3.setVisible(true);
     }
 }
