@@ -20,7 +20,7 @@ class calc {
 
         calPanel = new JPanel();
         calPanel.setLayout(new GridLayout(7, 7));
-        calPanel.setBounds(200 , 200, 300, 300); // 캘린더 위치와 크기 설정
+        calPanel.setBounds(200 , 200, 300, 300);
         parent.add(calPanel);
 
         JPanel topPanel = new JPanel(null);
@@ -183,10 +183,8 @@ public class MainPage {
             JPanel mainPanel = new JPanel(null);
             mainPanel.setBounds(0, 0, 800, 600);
 
-            // 캘린더 추가
             calc calendar = new calc(mainPanel);
 
-            // 나머지 UI 구성
             JLabel userInfo = new JLabel("회원 정보");
             userInfo.setBounds(20, 20, 200, 100);
             userInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
