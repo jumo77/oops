@@ -12,9 +12,9 @@ package frames.jongh;
         DefaultTableModel model = null;
 
         JLabel NameLable, PriceLable, GroupLable;
-        JTextField Product_Name, Product_Price, Group_Add;
-        JButton Group_AddButton, Group_Remove, Add, Remove, Repair;
-
+        JTextField Product_Name, Product_Price, Group_Add, S_P_Name, S_P_Price, S_P_Group;
+        JButton Group_AddButton, Group_Remove, Add, Remove, Repair, S_Button;
+        JComboBox dateoption;
         JScrollPane SP;
         int row;
 
@@ -48,12 +48,20 @@ package frames.jongh;
             Product_Name = new JTextField(100);
             Product_Price = new JTextField(100);
             Group_Add = new JTextField(100);
+            S_P_Name = new JTextField(100);
+            S_P_Price = new JTextField(100);
+            S_P_Group = new JTextField(100);
+
+            dateoption = new JComboBox<>(new String[]{"오름차순","내림차순"});
+
+            S_Button =  new JButton("검색");
 
             Group_AddButton = new JButton("분류 추가");
             Group_Remove = new JButton("분류 삭제");
 
             Group_AddButton.addActionListener(this);
             Group_Remove.addActionListener(this);
+            S_Button.addActionListener(this);
 
             Add = new JButton("등록");
             Remove = new JButton("삭제");
@@ -80,6 +88,7 @@ package frames.jongh;
             Group_Remove.setBounds(800,500,100,30);
             SP.setBounds(20,150,500,520); //센터 위치
 
+            add(top,BorderLayout.NORTH);
             center.add(Group_AddButton);
             center.add(Group_Remove);
             center.add(Add);
@@ -92,6 +101,8 @@ package frames.jongh;
             center.add(NameLable);
             center.add(PriceLable);
             center.add(GroupLable);
+            top.add(S_Button);
+            top.add(dateoption);
         }
         public void actionPerformed(ActionEvent e) {
             String name = (String)Product_Name.getText();
@@ -128,7 +139,55 @@ package frames.jongh;
         public void mouseExited(MouseEvent e) {}
         public void mousePressed(MouseEvent e) {}
         public void mouseReleased(MouseEvent e) {}
-        }
+
+
+//        public void actionS(ActionListener e){
+//            if(e.getSource== S_Button){
+//                String product = S_P_Name.getText().trim().toLowerCase();
+//                String price = S_P_Price.getText().trim();
+//                String combo = S_P_Group.getText().trim().toLowerCase();
+//                String date = (String)dateoption.getSelectedItem();
+//
+//                Vector<Vector<String>> Result = search1(S_P_Name, S_P_Price, S_P_Group, dateoption);
+//
+//                model.setDataVector(Result, columnName);
+//            }
+//        }
+//        private Vector<Vector<String>> search1(String product, String price, String group, String date) {
+//            Vector<Vector<String>> match = new Vector<>();
+//            Vector<Vector<String>> nomatch = new Vector<>();
+//
+//            for (Vector<String> row : rowData) {
+//                boolean isMatch = true;
+//
+//                if (!product.isEmpty() && !row.get(1).toLowerCase().contains(product)) {
+//                    isMatch = false;
+//                }
+//                if (!group.isEmpty() && !row.get(2).toLowerCase().contains(group)) {
+//                    isMatch = false;
+//                }
+//                if (!price.isEmpty() && !row.get(3).toLowerCase().equals(price)) {
+//                    isMatch = false;
+//                }
+//                if (isMatch) {
+//                    match.add(row);
+//                } else {
+//                    nomatch.add(row);
+//                }
+//            }
+//            Comparator<Vector<String>> comparator = (o1, o2) -> {
+//                String s1 = o1.get(4);
+//                String s2 = o2.get(4);
+//                int s3 = s1.compareTo(s2);
+//                return "오름차순".equals(date)?s3 : -s3;
+//            };
+//            match.sort(comparator);
+//            nomatch.sort((o1,o2) -> o2.get(4).compareTo(o1.get(4)));
+//
+//            match.addAll(nomatch);
+//            return match;
+//        }
+    }
         class Product {
         public static void main(String[] args) {
             ProductMain frame = new ProductMain();
