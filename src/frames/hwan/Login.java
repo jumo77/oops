@@ -51,34 +51,36 @@ public class Login extends JFrame implements ActionListener {
             int emp_number = Integer.parseInt(empnumber.getText());
             String password = passwd.getText();
 
-            try (ResultSet rs = DBMS.select("select * from team_work.employee where emp_num = " + emp_number)) {
-                if (rs.next()) {
-                    if (password.equals(rs.getString("emp_password"))) {
+            try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee")) {
+
+                while (rs.next()) {
+                    if (emp_number == rs.getInt("emp_num") && password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 완료", true, "로그인 되었습니다.");
                         md.setSize(200, 100);
                         md.setLocation(400, 400);
+                        md.setVisible(true);//메인으로 넘어가게 교체(그 열의 정보를 메인화면으로 넘어가게끔 코딩)
+                    } else if (emp_number != rs.getInt("emp_num") && password.equals(rs.getString("emp_password"))) {
+                        MessageDialog md = new MessageDialog(this, "로그인 실패", true, "사번이 일치하지 않습니다.");
+                        md.setSize(200, 100);
+                        md.setLocation(400, 400);
                         md.setVisible(true);
-                        LoginData.id = Integer.parseInt(this.empnumber.getText());
-                        LoginData.name = rs.getString("emp_name");
-                        LoginData.dept = rs.getInt("dept_id");
-                        LoginData.grade = rs.getInt("emp_grade");
-                        //메인으로 넘어가게 교체(그 열의 정보를 메인화면으로 넘어가게끔 코딩)
-                        this.dispose();
-                    } else if (!password.equals(rs.getString("emp_password"))) {
+                    } else if (emp_number == rs.getInt("emp_num") && !password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 실패", true, "비밀번호가 일치하지 않습니다.");
                         md.setSize(200, 100);
                         md.setLocation(400, 400);
                         md.setVisible(true);
+                    } else {
+                        MessageDialog md = new MessageDialog(this, "로그인 실패", true, "계정이 존재하지 않습니다");
+                        md.setSize(200, 100);
+                        md.setLocation(400, 400);
+                        md.setVisible(true);
                     }
-                } else {
-                    MessageDialog md = new MessageDialog(this, "로그인 실패", true, "계정이 존재하지 않습니다");
-                    md.setSize(200, 100);
-                    md.setLocation(400, 400);
-                    md.setVisible(true);
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+
         }
     }
 }

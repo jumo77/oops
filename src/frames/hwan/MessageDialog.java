@@ -5,11 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class MessageDialog extends JDialog implements ActionListener {
+public class MessageDialog extends JDialog implements ActionListener {
     JButton ok;
 
-    MessageDialog(JFrame parent, String title, boolean mode, String msg) {
+    public MessageDialog(JFrame parent, String title, boolean mode, String msg) {
         super(parent, title, mode);
+        setBounds(parent.getX() + parent.getWidth() / 2 - 50,
+                parent.getY() + parent.getHeight()/2 -50,
+                100, 100);
         JPanel pc = new JPanel();
         JLabel label = new JLabel(msg);
         pc.add(label);
@@ -26,4 +29,3 @@ class MessageDialog extends JDialog implements ActionListener {
         dispose();
     }
 }
-
