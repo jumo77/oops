@@ -51,7 +51,7 @@ public class Login extends JFrame implements ActionListener {
             int emp_number = Integer.parseInt(empnumber.getText());
             String password = passwd.getText();
 
-            try (ResultSet rs = DBMS.select("select * from team_work.employee")) {
+            try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee")) {
 
                 while (rs.next()) {
                     if (emp_number == rs.getInt("emp_num") && password.equals(rs.getString("emp_password"))) {

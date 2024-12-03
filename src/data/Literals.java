@@ -9,16 +9,18 @@ public class Literals {
     public static final int V_GAP = 10;
     public static final int BORDER = 10;
 
-    public static final int LABEL_PANEL_WIDTH = 300;
+    public static final int LABEL_PANEL_WIDTH = 250;
     public static final int FORM_PANEL_WIDTH = 600;
     public static final int TEXT_FIELD_HEIGHT = 70;
 
     public static final String DB_SERVER = "jdbc:mysql://club-named-rapid.xyz:3306/team_work";
-    public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String DB_USERID = "oopp_user";
     public static final String DB_USERPW = "1234";
 
     public static void SET_THEME(JComponent... js) {
+        try {
+
         for (JComponent j : js) {
             j.setBackground(new Color(
                     Color.WHITE.getRed() - j.getBackground().getRed(),
@@ -33,11 +35,21 @@ public class Literals {
             j.setBorder(new LineBorder(Color.WHITE, 2, true));
             j.setFont(j.getFont().deriveFont(30.0f));
         }
+        }catch (Exception e){
+
+        }
     }
 
     public static void REMOVE_BORDER(JLabel... js){
         for (JLabel j : js){
             j.setBorder(null);
         }
+    }
+
+    public static void PLACE_CENTER(JFrame j, int width, int height){
+        j.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width /2 - width/2,
+                Toolkit.getDefaultToolkit().getScreenSize().height /2 - height/2,
+                width, height
+        );
     }
 }
