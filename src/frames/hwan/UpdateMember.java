@@ -6,9 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-public class UpdateMember extends JFrame implements ActionListener { //회원가입은 인사관리 창에서 사용할 예정
-    JTextField name, tel_number, salary, dept_id; //회원가입 전화번호를 넣을지 뺄지 고민
+public class UpdateMember extends JFrame implements ActionListener {
+    JTextField name, tel_number, salary, dept_id;
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel;
@@ -20,11 +21,9 @@ public class UpdateMember extends JFrame implements ActionListener { //회원가
 
         ct.setLayout(new BorderLayout(0, 20));
         JPanel top = new JPanel();
-        top.setLayout(new GridLayout(6, 1));
-        JPanel p1 = new JPanel();
-        p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        top.setLayout(new GridLayout(7, 1));
 
-        Panel p2 = new Panel();
+        JPanel p2 = new JPanel();
         p2.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel l2 = new JLabel("Password :");
         pwd = new JPasswordField(20);
@@ -61,7 +60,6 @@ public class UpdateMember extends JFrame implements ActionListener { //회원가
         p6.add(l6);
         p6.add(dept_id);
 
-        top.add(p1);
         top.add(p2);
         top.add(p3);
         top.add(p4);
@@ -88,12 +86,22 @@ public class UpdateMember extends JFrame implements ActionListener { //회원가
         if (s.equals("취소")) {
             this.dispose();
         } else if (s.equals("확인")) {
-            DBMS.insert("");//회원 정보 수정
+            try {
+                DBMS.DB.executeUpdate("UPDATE team_work.employee where emp_num = "+" SET emp_name = '"+name.getText()+"', emp_password = '"
+                        +pwd.getPassword()+"', " + "emp_tel = '"+tel.getSelectedItem()+tel_number.getText()+"', emp_salary = '"+
+                        salary.getText()+"', dept_id = "+dept_id.getText()+";");//회원 정보 수정
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             MessageDialog md = new MessageDialog(this, "정보 변경", true, "정보가 변경되었습니다.");
             md.setLocation(900, 300);
             md.setVisible(true);
         } else {
-            DBMS.insert("UPDATE employee SET");//sql 문 작성하기
+            try {
+                DBMS.DB.executeUpdate("DELETE FROM team_work.employee where emp_num = ");//sql 문 작성하기
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

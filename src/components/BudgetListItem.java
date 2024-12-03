@@ -53,12 +53,12 @@ public class BudgetListItem extends JPanel implements ActionListener {
         this.add(amount);
         this.add(reason);
         this.add(date);
-        if (LoginData.dept == "총무" && a) {
-            this.add(resultSetter);
-        } else {
-            this.add(result);
-        }
-        this.add(line);
+//        if (LoginData.dept == "총무" && a) {
+//            this.add(resultSetter);
+//        } else {
+//            this.add(result);
+//        }
+//        this.add(line);
     }
 
     public BudgetListItem(int _id, String _dept, String _amount, String _reason, String _date, String _result) {

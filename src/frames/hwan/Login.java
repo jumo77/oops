@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login extends JFrame implements ActionListener {
-    JTextField empnumber;
+    JTextField empNumber;
     JTextField passwd;
     JButton b1, b2;
     Container ct = getContentPane();
@@ -22,11 +22,11 @@ public class Login extends JFrame implements ActionListener {
 
         //이미지 넣기
         JLabel l1 = new JLabel("사번 :");
-        empnumber = new JTextField(8);
+        empNumber = new JTextField(8);
         l1.setBounds(400, 70, 70, 30);
-        empnumber.setBounds(490, 70, 120, 30);
+        empNumber.setBounds(490, 70, 120, 30);
         ct.add(l1);
-        ct.add(empnumber);
+        ct.add(empNumber);
 
         JLabel l2 = new JLabel("비밀번호 :");
         passwd = new JTextField(20);
@@ -51,17 +51,17 @@ public class Login extends JFrame implements ActionListener {
         if (s.equals("취소")) {
             this.dispose();
         } else if (s.equals("로그인")) {
-            int emp_number = Integer.parseInt(empnumber.getText());
             String password = passwd.getText();
 
-            try (ResultSet rs = DBMS.select("select * from team_work.employee where emp_num = " + emp_number)) {
+            try (ResultSet rs = DBMS.DB.executeQuery("SELECT * from team_work.employee where emp_num = " +
+                    Integer.parseInt(empNumber.getText()))) {
                 if (rs.next()) {
                     if (password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 완료", true, "로그인 되었습니다.");
                         md.setSize(200, 100);
                         md.setLocation(400, 400);
                         md.setVisible(true);
-                        LoginData.id = Integer.parseInt(this.empnumber.getText());
+                        LoginData.id = Integer.parseInt(this.empNumber.getText());
                         LoginData.name = rs.getString("emp_name");
                         LoginData.dept = rs.getInt("dept_id");
                         LoginData.grade = rs.getInt("emp_grade");

@@ -61,10 +61,15 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
         columnName.add("연봉(단위 만)");
         columnName.add("비밀번호");
 
-        top.setLayout(new FlowLayout());
+        center.setLayout(new GridLayout(2, 1));
+
+
+        JPanel p1 = new JPanel();
+        p1.setLayout(new FlowLayout(FlowLayout.LEFT));
         sortComboBox = new JComboBox(dataString);
         sortComboBox.addActionListener(this);
-        top.add(sortComboBox);
+        p1.add(sortComboBox);
+        center.add(p1);
 
         dataStringInv = new HashMap<>();
         for (int i = 0; i < dataString.length; i++) { //데이터를 가져왔을 때 주소 구하고 저장
@@ -80,7 +85,7 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
 
         gradeString = new ArrayList<>();
         gradeStringInv = new HashMap<>();
-        try (ResultSet grade = DBMS.select("select * from team_work.emp_grade order by id")) {
+        try (ResultSet grade = DBMS.DB.executeQuery("select * from team_work.emp_grade order by id")) {
             while (grade.next()) {
                 gradeString.add(grade.getString(2)); //직급을 입력받고(2번째 열)
                 gradeStringInv.put(grade.getString(2), Integer.parseInt(grade.getString(1))); //직급을 String으로 변환
@@ -91,7 +96,7 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
 
         deptString = new ArrayList<>();
         deptStringInv = new HashMap<>();
-        try (ResultSet dept = DBMS.select("select * from team_work.dept order by id")){
+        try (ResultSet dept = DBMS.DB.executeQuery("select * from team_work.dept order by id")){
             while(dept.next()){
                 deptString.add(dept.getString(2));
                 deptStringInv.put(dept.getString(2), Integer.parseInt(dept.getString(1)));
@@ -100,7 +105,7 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
             throw new RuntimeException(e);
         }
 
-        try (ResultSet rs = DBMS.select("select * from team_work.employee")) {
+        try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee")) {
             while (rs.next()) {
                 Vector<String> row = new Vector<>();
                 emp_name = rs.getString("emp_name");
