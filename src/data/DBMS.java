@@ -1,20 +1,18 @@
 package data;
 
-import data.mpo.Employee;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
+import java.sql.*;
 
 public class DBMS {
-    private Connection c;
+    private static Connection c;
+    public static Statement DB;
 
-    public void connect(){
+    public static void connect(){
         try {
+            Class.forName(Literals.DB_DRIVER);
             c = DriverManager.getConnection(Literals.DB_SERVER, Literals.DB_USERID, Literals.DB_USERPW);
+            DB = c.createStatement();
             System.out.println("MySQL Connected!");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
