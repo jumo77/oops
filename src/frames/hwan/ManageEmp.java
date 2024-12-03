@@ -8,17 +8,21 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class ManageEmp extends JFrame implements ActionListener {
+public class ManageEmp extends JFrame implements ActionListener, MouseListener {
     Vector<String> columnName;
     Vector<Vector<String>> rowData;
     JTable table;
     DefaultTableModel model;
     JTextField search;
-        JComboBox searchComboBox, sortComboBox;
+    JComboBox searchComboBox, sortComboBox;
+    JButton newMember, cancel, updateMember, informMember;
+    int row;
 
     String dataString[] = {"이름", "입사일", "사번", "직급", "부서명"};
     HashMap<String, Integer> dataStringInv = new HashMap<String, Integer>() {{ //해시맵(데이터 형 변환) 이걸 통해서 데이터>어느 열을 갈지 변환
@@ -81,7 +85,7 @@ public class ManageEmp extends JFrame implements ActionListener {
                 gradeString.add(grade.getString(2)); //직급을 입력받고(2번째 열)
                 gradeStringInv.put(grade.getString(2), Integer.parseInt(grade.getString(1))); //직급을 String으로 변환
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -153,6 +157,22 @@ public class ManageEmp extends JFrame implements ActionListener {
             public void changedUpdate(javax.swing.event.DocumentEvent e) { //텍스트 변경을 제외한 나머지(추상 클래스라서 무조건 선언해야하는 값)
             }
         });
+
+        informMember = new JButton("판매 항목 보기"); //판매 항목 새 창 열기
+        informMember.addActionListener(this);
+        bottom.add(informMember);
+
+        updateMember = new JButton("수정"); //수정 가능한 창 새로 열기
+        updateMember.addActionListener(this);
+        bottom.add(updateMember);
+
+        newMember = new JButton("회원 가입");
+        newMember.addActionListener(this);
+        bottom.add(newMember);
+
+        cancel = new JButton("돌아가기");
+        cancel.addActionListener(this);
+        bottom.add(cancel);
     }
 
     @Override
@@ -160,10 +180,10 @@ public class ManageEmp extends JFrame implements ActionListener {
         String target = Objects.requireNonNull(sortComboBox.getSelectedItem()).toString();
         switch (target) {
             case "이름":
-                rowData.sort(Comparator.comparing(a -> a.get(0)));
+                rowData.sort(Comparator.comparing(a -> a.get(0))); //사실 정렬은 sorter을 이용해서 되는걸 이후에 알았지만
                 break;
             case "사번":
-                rowData.sort(Comparator.comparing(a -> a.get(2)));
+                rowData.sort(Comparator.comparing(a -> a.get(2))); //정렬하는 코드도 작성하고 싶어서 작성함
                 break;
             case "입사일":
                 rowData.sort(Comparator.comparing(a -> a.get(1)));
@@ -175,7 +195,28 @@ public class ManageEmp extends JFrame implements ActionListener {
                 rowData.sort(Comparator.comparing(a -> a.get(3)));
                 break;
         }
-
         table.updateUI();
+        String s = ae.getActionCommand();
+        if (s.equals("회원 가입")) {
+            NewMember win1 = new NewMember("회원가입");
+            win1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            win1.setSize(370, 400);
+            win1.setLocation(800, 200);
+            win1.setVisible(true);
+        } else if (s.equals("돌아가기")) {
+            //메인화면 출력
+            this.dispose();
+        } else if (s.equals("수정")) {
+            //클릭한 사원 수정(승진, 연봉, 퇴사 등등)
+        } else{
+
+        }
     }
+    public void mouseClicked(MouseEvent e) {
+        row = table.getSelectedRow();
+    }
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
 }

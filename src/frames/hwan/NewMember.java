@@ -91,7 +91,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
         ct.add(bottom, BorderLayout.SOUTH);
     }
 
-    public void actionPerformed(ActionEvent ae) { //회원가입 이후에 데이터베이스에 값을 전달해아함
+    public void actionPerformed(ActionEvent ae) {
         String s = ae.getActionCommand();
         if (s.equals("취소")) {
             this.dispose();
@@ -123,6 +123,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
             MessageDialog md = new MessageDialog(this, "계정 생성", true, "계정이 생성되었습니다.");
             md.setLocation(900, 300);
             md.setVisible(true);
+            b1.setEnabled(false);
         }
     }
 }
