@@ -32,8 +32,8 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
         put("직급", 5);
         put("부서명", 3);
     }};
-    ArrayList<String> gradeString;
-    HashMap<String, Integer> gradeStringInv; //직급 변환(정렬을 편하게 하기 위해서)
+    ArrayList<String> gradeString, deptString;
+    HashMap<String, Integer> gradeStringInv, deptStringInv; //직급 변환(정렬을 편하게 하기 위해서)
     String emp_name, emp_date, emp_num, emp_dept, emp_tel, emp_grade, emp_salary, emp_password;
 
     JScrollPane tableSP;
@@ -89,6 +89,17 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
             throw new RuntimeException(e);
         }
 
+        deptString = new ArrayList<>();
+        deptStringInv = new HashMap<>();
+        try (ResultSet dept = DBMS.select("select * from team_work.dept order by id")){
+            while(dept.next()){
+                deptString.add(dept.getString(2));
+                deptStringInv.put(dept.getString(2), Integer.parseInt(dept.getString(1)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         try (ResultSet rs = DBMS.select("select * from team_work.employee")) {
             while (rs.next()) {
                 Vector<String> row = new Vector<>();
@@ -102,11 +113,12 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
                 emp_password = rs.getString("emp_password");
 
                 String gradeName = gradeString.get(Integer.parseInt(emp_grade));
+                String deptName = deptString.get(Integer.parseInt(emp_dept));
 
                 row.add(emp_name);
                 row.add(emp_date);
                 row.add(emp_num);
-                row.add(emp_dept);
+                row.add(deptName);
                 row.add(emp_tel);
                 row.add(gradeName);
                 row.add(emp_salary);
@@ -207,9 +219,11 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
             //메인화면 출력
             this.dispose();
         } else if (s.equals("수정")) {
+            UpdateMember win2 = new UpdateMember("정보 수정", emp_name, emp_tel, emp_salary, emp_dept, emp_password);
+            win2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             //클릭한 사원 수정(승진, 연봉, 퇴사 등등)
         } else{
-
+            //클릭한 사원 판매 목록 보여주기
         }
     }
     public void mouseClicked(MouseEvent e) {

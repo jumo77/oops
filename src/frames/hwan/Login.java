@@ -1,6 +1,7 @@
 package frames.hwan;
 
 import data.DBMS;
+import data.LoginData;
 
 import javax.swing.*;
 import java.awt.*;

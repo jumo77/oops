@@ -10,5 +10,5 @@ public class Product_Employee extends javax.swing.JFrame {
     JTable table;
     DefaultTableModel model;
 
-
+    //상품 판매 테이블 보여주기(누른 사번만)
 }

@@ -1,4 +1,4 @@
-package frames.hwan;
+package data;
 
 public class LoginData {
     public static int id;
