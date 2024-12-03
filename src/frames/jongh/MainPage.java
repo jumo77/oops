@@ -1,7 +1,14 @@
 package frames.jongh;
 
+import data.DBMS;
+import frames.hwan.LoginData;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.*;
 import java.util.List;
 
@@ -43,6 +50,8 @@ class calc {
 
         updateCalendar();
     }
+
+
 
     private String getMonthYearLabel() {
         return String.format("%d년 %02d월", year, month + 1);
@@ -206,14 +215,15 @@ public class MainPage {
             Font font = user_title.getFont();
             Font fontsize = font.deriveFont(25f);
             user_title.setFont(fontsize);
-            user_title.setBounds(100,50,200,30);
+            user_title.setBounds(100, 50, 200, 30);
 
-            JLabel user = new JLabel("<html><br><br>사원 코드: <br><br>사원 이름: <br><br>직급:  <br><br>");
+            JLabel user = new JLabel("<html><br><br>사원 코드:" + LoginData.id + " <br><br>사원 이름: " + LoginData.name + "<br><br>직급: " + LoginData.grade + " <br><br>");
             user.setBounds(20, 20, 300, 200);
             Font font2 = user.getFont();
             Font fontsize2 = font2.deriveFont(12f);
             user.setFont(fontsize2);
             user.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 
             JLabel photo = new JLabel("사진");
             photo.setBounds(350, 480, 500, 250);
@@ -233,7 +243,6 @@ public class MainPage {
 
             JButton menuButton4 = new JButton("인사");
             menuButton4.setBounds(20, 540, 300, 40);
-
 
 
             mainPanel.add(user_title);
