@@ -19,6 +19,8 @@ public class Login extends JFrame implements ActionListener {
     public Login(String title) {
         setTitle(title);
         ct.setLayout(null);
+
+        //이미지 넣기
         JLabel l1 = new JLabel("사번 :");
         empnumber = new JTextField(8);
         l1.setBounds(400, 70, 70, 30);
