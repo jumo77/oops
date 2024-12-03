@@ -51,8 +51,8 @@ public class Login extends JFrame implements ActionListener {
             int emp_number = Integer.parseInt(empnumber.getText());
             String password = passwd.getText();
 
-            try (ResultSet rs = DBMS.select("select * from team_work.employee where emp_num = "+emp_number)) {
-                if(rs.next()) {
+            try (ResultSet rs = DBMS.select("select * from team_work.employee where emp_num = " + emp_number)) {
+                if (rs.next()) {
                     if (password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 완료", true, "로그인 되었습니다.");
                         md.setSize(200, 100);
@@ -70,8 +70,7 @@ public class Login extends JFrame implements ActionListener {
                         md.setLocation(400, 400);
                         md.setVisible(true);
                     }
-                }
-                else {
+                } else {
                     MessageDialog md = new MessageDialog(this, "로그인 실패", true, "계정이 존재하지 않습니다");
                     md.setSize(200, 100);
                     md.setLocation(400, 400);
