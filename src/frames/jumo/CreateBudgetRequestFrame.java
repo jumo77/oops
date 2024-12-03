@@ -30,12 +30,14 @@ public class CreateBudgetRequestFrame extends JFrame implements ActionListener {
         ct.setLayout(null);
         ct.setBackground(Color.BLACK);
         ct.setName(title);
-        submit = new JButton("예산 신고");
-        submit.addActionListener(this);
-        RightArraganedLabel _date = new RightArraganedLabel("입출금 일자");      date = new JTextField();
-        RightArraganedLabel _amount = new RightArraganedLabel("입출금 금액");    amount = new JTextField();
-        RightArraganedLabel _reason = new RightArraganedLabel("사용 목적");     reason = new JTextField();
-        RightArraganedLabel _dept = new RightArraganedLabel("사용 부서");       dept = new JComboBox<>(depts);
+        RightArraganedLabel _date = new RightArraganedLabel("입출금 일자");
+        date = new JTextField();
+        RightArraganedLabel _amount = new RightArraganedLabel("입출금 금액");
+        amount = new JTextField();
+        RightArraganedLabel _reason = new RightArraganedLabel("사용 목적");
+        reason = new JTextField();
+        RightArraganedLabel _dept = new RightArraganedLabel("사용 부서");
+        dept = new JComboBox<>(depts);
         JPanel l = new JPanel(); JPanel r = new JPanel();
         JPanel ll = new JPanel();JPanel rr = new JPanel();
         GridLayout g = new GridLayout(4, 1, Literals.H_GAP, Literals.V_GAP);
@@ -67,6 +69,10 @@ public class CreateBudgetRequestFrame extends JFrame implements ActionListener {
         l.add(_dept);   r.add(dept);
         ll.add(l);      rr.add(r);
         ct.add(ll);     ct.add(rr);
+
+
+        submit = new JButton("예산 신고");
+        submit.addActionListener(this);
         submit.setBounds(rr.getWidth()+rr.getX()-200, getHeight()-100, 200, 50);
         ct.add(submit);
     }
