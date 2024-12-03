@@ -9,12 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class BudgetListIteam extends JPanel implements ActionListener {
+public class BudgetListItem extends JPanel implements ActionListener {
 
     JCheckBox resultSetter;
     int id;
 
-    public BudgetListIteam(int _id, String _dept, String _amount, String _reason, String _date, String _result) {
+    public BudgetListItem(int _id, String _dept, String _amount, String _reason, String _date, String _result, boolean a) {
 
         id = _id;
 
@@ -53,7 +53,7 @@ public class BudgetListIteam extends JPanel implements ActionListener {
         this.add(amount);
         this.add(reason);
         this.add(date);
-        if (LoginData.dept == "총무") {
+        if (LoginData.dept == "총무" && a) {
             this.add(resultSetter);
         } else {
             this.add(result);
@@ -61,6 +61,9 @@ public class BudgetListIteam extends JPanel implements ActionListener {
         this.add(line);
     }
 
+    public BudgetListItem(int _id, String _dept, String _amount, String _reason, String _date, String _result) {
+        this(_id, _dept, _amount, _reason, _date, _result, false);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

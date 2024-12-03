@@ -47,9 +47,7 @@ public class Literals {
     }
 
     public static void PLACE_CENTER(JFrame j, int width, int height){
-        j.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width /2 - width/2,
-                Toolkit.getDefaultToolkit().getScreenSize().height /2 - height/2,
-                width, height
-        );
+        j.setSize(width, height);
+        j.setLocationRelativeTo(null);
     }
 }
