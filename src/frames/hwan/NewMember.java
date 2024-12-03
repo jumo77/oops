@@ -97,7 +97,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
             this.dispose();
         } else if (s.equals("사번 중복 체크")) {
 
-            try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee where emp_num = " + companynumber.getText())) {
+            try (ResultSet rs = DBMS.select("select * from team_work.employee where emp_num = " + companynumber.getText())) {
                 try {
                     if (!rs.isBeforeFirst()) {
                         MessageDialog md = new MessageDialog(this, "사번 중복 체크", true, "사용할 수 있는 사번입니다.");
@@ -117,16 +117,12 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
                 throw new RuntimeException(e);
             }
         } else if (s.equals("확인")) {
-            try {
-                DBMS.DB.executeQuery("INSERT INTO team_work.employee (emp_name, emp_num, emp_password, emp_grade, emp_salary, emp_tel, dept_id) " +
-                        "VALUES ('" + name.getText() + "', " + companynumber.getText() + ", '" + new String(pwd.getPassword()) + "', " +
-                        "1, " + salary.getText() + ", '" + tel.getSelectedItem() + tel_number.getText() + "','" + dept_id.getText() + "');");
-                MessageDialog md = new MessageDialog(this, "계정 생성", true, "계정이 생성되었습니다.");
-                md.setLocation(900, 300);
-                md.setVisible(true);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            DBMS.insert("INSERT INTO team_work.employee (emp_name, emp_num, emp_password, emp_grade, emp_salary, emp_tel, dept_id) " +
+                    "VALUES ('" + name.getText() + "', " + companynumber.getText() + ", '" + new String(pwd.getPassword()) + "', " +
+                    "1, " + salary.getText() + ", '" + tel.getSelectedItem() + tel_number.getText() + "','" + dept_id.getText() + "');");
+            MessageDialog md = new MessageDialog(this, "계정 생성", true, "계정이 생성되었습니다.");
+            md.setLocation(900, 300);
+            md.setVisible(true);
         }
     }
 }

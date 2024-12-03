@@ -1,7 +1,8 @@
 package data;
 
 public class LoginData {
-    public static int id = 1;
-    public static String dept = "경영";
-    public static String grade = "";
+    public static int id;
+    public static String name;
+    public static int grade;
+    public static int dept;
 }
