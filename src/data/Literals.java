@@ -15,26 +15,26 @@ public class Literals {
 
     public static final String DB_SERVER = "jdbc:mysql://club-named-rapid.xyz:3306/team_work";
     public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String DB_USERID = "oopp_user";
-    public static final String DB_USERPW = "1234";
+    public static final String DB_USERID = "hwan";
+    public static final String DB_USERPW = "asdf";
 
     public static void SET_THEME(JComponent... js) {
         try {
 
-        for (JComponent j : js) {
-            j.setBackground(new Color(
-                    Color.WHITE.getRed() - j.getBackground().getRed(),
-                    Color.WHITE.getGreen() - j.getBackground().getGreen(),
-                    Color.WHITE.getBlue() - j.getBackground().getBlue()
-            ));
-            j.setForeground(new Color(
-                    Color.WHITE.getRed() - j.getForeground().getRed(),
-                    Color.WHITE.getGreen() - j.getForeground().getGreen(),
-                    Color.WHITE.getBlue() - j.getForeground().getBlue()
-            ));
-            j.setBorder(new LineBorder(Color.WHITE, 2, true));
-            j.setFont(j.getFont().deriveFont(30.0f));
-        }
+            for (JComponent j : js) {
+                j.setBackground(new Color(
+                        Color.WHITE.getRed() - j.getBackground().getRed(),
+                        Color.WHITE.getGreen() - j.getBackground().getGreen(),
+                        Color.WHITE.getBlue() - j.getBackground().getBlue()
+                ));
+                j.setForeground(new Color(
+                        Color.WHITE.getRed() - j.getForeground().getRed(),
+                        Color.WHITE.getGreen() - j.getForeground().getGreen(),
+                        Color.WHITE.getBlue() - j.getForeground().getBlue()
+                ));
+                j.setBorder(new LineBorder(Color.WHITE, 2, true));
+                j.setFont(j.getFont().deriveFont(30.0f));
+            }
         }catch (Exception e){
 
         }
