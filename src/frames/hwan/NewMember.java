@@ -1,6 +1,7 @@
 package frames.hwan;
 
 import data.DBMS;
+import data.LoginData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +14,12 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
     JTextField companynumber, name, tel_number, salary, dept_id, empDate; //회원가입 전화번호를 넣을지 뺄지 고민
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
-    JComboBox tel;
+    JComboBox tel, dept;
     JButton check, b1, b2;
+    ManageEmp manageEmp;
 
-    public NewMember(String title) {
+    public NewMember(String title, ManageEmp Data) {
+        manageEmp = Data;
         setTitle(title);
         Container ct = getContentPane();
 
@@ -74,9 +77,9 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
         JPanel p7 = new JPanel();
         p7.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel l7 = new JLabel("부서명   :");
-        dept_id = new JTextField(10);
+        dept = new JComboBox(new String[]{"개발", "총무", "홍보", "영업", "인사"});
         p7.add(l7);
-        p7.add(dept_id);
+        p7.add(dept);
 
         top.add(p1);
         top.add(p2);
@@ -129,13 +132,15 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
             try {
                 DBMS.DB.executeUpdate("INSERT INTO team_work.employee (emp_name, emp_num, emp_date, emp_password, emp_grade, emp_salary, emp_tel, dept_id) " +
                         "VALUES ('" + name.getText() + "', " + Integer.parseInt(companynumber.getText()) + ", " + Integer.parseInt(empDate.getText()) + ", '" + new String(pwd.getPassword()) + "', " +
-                        "1, " + Integer.parseInt(salary.getText()) + ", '" + tel.getSelectedItem() + tel_number.getText() + "','" + Integer.parseInt(dept_id.getText()) + "');");
+                        "1, " + Integer.parseInt(salary.getText()) + ", '" + tel.getSelectedItem() + tel_number.getText() + "','" +
+                        LoginData.deptStringInv.get(dept.getSelectedItem()) + "');");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             MessageDialog md = new MessageDialog(this, "계정 생성", true, "계정이 생성되었습니다.");
             md.setLocation(900, 300);
             md.setVisible(true);
+            manageEmp.FetchDatabase();
             //회원가입 성공시 인사관리 창에서 새로고침 되게 코딩
         }
     }

@@ -8,13 +8,15 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class ManageEmp extends JFrame implements ActionListener, MouseListener {
+import static data.LoginData.dataStringInv;
+import static data.LoginData.gradeStringInv;
+import static data.LoginData.deptStringInv;
+
+public class ManageEmp extends JFrame implements ActionListener{
     Vector<String> columnName;
     Vector<Vector<String>> rowData;
     JTable table;
@@ -22,18 +24,10 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
     JTextField search;
     JComboBox searchComboBox, sortComboBox;
     JButton newMember, cancel, updateMember, informMember;
-    int row;
 
     String dataString[] = {"이름", "입사일", "사번", "직급", "부서명"};
-    HashMap<String, Integer> dataStringInv = new HashMap<String, Integer>() {{ //해시맵(데이터 형 변환) 이걸 통해서 데이터>어느 열을 갈지 변환
-        put("이름", 0); //테이블에서 열 순서를 int로 가져오기 때문에 직접 지정한 숫자로 열을 선택(클래스 선언했으면 필요 없었음)
-        put("입사일", 1);
-        put("사번", 2);
-        put("직급", 5);
-        put("부서명", 3);
-    }};
-    ArrayList<String> gradeString, deptString;
-    HashMap<String, Integer> gradeStringInv, deptStringInv; //직급 변환(정렬을 편하게 하기 위해서)
+
+    static ArrayList<String> gradeString, deptString;
     String emp_name, emp_date, emp_num, emp_dept, emp_tel, emp_grade, emp_salary, emp_password;
 
     JScrollPane tableSP;
@@ -105,36 +99,8 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
             throw new RuntimeException(e);
         }
 
-        try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee")) {
-            while (rs.next()) {
-                Vector<String> row = new Vector<>();
-                emp_name = rs.getString("emp_name");
-                emp_date = rs.getString("emp_date");
-                emp_num = rs.getString("emp_num");
-                emp_dept = rs.getString("dept_id");
-                emp_tel = rs.getString("emp_tel");
-                emp_grade = rs.getString("emp_grade");
-                emp_salary = rs.getString("emp_salary");
-                emp_password = rs.getString("emp_password");
+        FetchDatabase();
 
-                String gradeName = gradeString.get(Integer.parseInt(emp_grade));
-                String deptName = deptString.get(Integer.parseInt(emp_dept));
-
-                row.add(emp_name);
-                row.add(emp_date);
-                row.add(emp_num);
-                row.add(deptName);
-                row.add(emp_tel);
-                row.add(gradeName);
-                row.add(emp_salary);
-                row.add(emp_password);
-
-                rowData.add(row);
-                table.updateUI();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         center.setLayout(new FlowLayout());
         center.add(tableSP);
 
@@ -192,6 +158,39 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
         bottom.add(cancel);
     }
 
+    public void FetchDatabase() {
+        try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.employee")) {
+            rowData.clear();
+            while (rs.next()) {
+                Vector<String> row = new Vector<>();
+                emp_name = rs.getString("emp_name");
+                emp_date = rs.getString("emp_date");
+                emp_num = rs.getString("emp_num");
+                emp_dept = rs.getString("dept_id");
+                emp_tel = rs.getString("emp_tel");
+                emp_grade = rs.getString("emp_grade");
+                emp_salary = rs.getString("emp_salary");
+                emp_password = rs.getString("emp_password");
+
+                String gradeName = gradeString.get(Integer.parseInt(emp_grade));
+                String deptName = deptString.get(Integer.parseInt(emp_dept));
+
+                row.add(emp_name);
+                row.add(emp_date);
+                row.add(emp_num);
+                row.add(deptName);
+                row.add(emp_tel);
+                row.add(gradeName);
+                row.add(emp_salary);
+                row.add(emp_password);
+                rowData.add(row);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        table.updateUI();
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         String target = Objects.requireNonNull(sortComboBox.getSelectedItem()).toString();
@@ -215,7 +214,7 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
         table.updateUI();
         String s = ae.getActionCommand();
         if (s.equals("회원 가입")) {
-            NewMember win1 = new NewMember("회원가입");
+            NewMember win1 = new NewMember("회원가입", this);
             win1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             win1.setSize(370, 400);
             win1.setLocation(800, 200);
@@ -224,18 +223,16 @@ public class ManageEmp extends JFrame implements ActionListener, MouseListener {
             //메인화면 출력
             this.dispose();
         } else if (s.equals("수정")) {
-            UpdateMember win2 = new UpdateMember("정보 수정", emp_name, emp_tel, emp_salary, emp_dept, emp_password);
+            int selected = table.getSelectedRow();
+            if (selected < 0)
+                return;
+            UpdateMember win2 = new UpdateMember("정보 수정", rowData.get(selected), this);
             win2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            //클릭한 사원 수정(승진, 연봉, 퇴사 등등)
+            win2.setSize(370, 400);
+            win2.setLocation(800, 200);
+            win2.setVisible(true);
         } else{
             //클릭한 사원 판매 목록 보여주기
         }
     }
-    public void mouseClicked(MouseEvent e) {
-        row = table.getSelectedRow();
-    }
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
 }

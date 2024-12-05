@@ -65,7 +65,7 @@ public class Login extends JFrame implements ActionListener {
                         LoginData.name = rs.getString("emp_name");
                         LoginData.dept = rs.getInt("dept_id");
                         LoginData.grade = rs.getInt("emp_grade");
-                        //메인으로 넘어가게 교체(그 열의 정보를 메인화면으로 넘어가게끔 코딩)
+                        //Product product = new Product();
                         this.dispose();
                     } else if (!password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 실패", true, "비밀번호가 일치하지 않습니다.");
