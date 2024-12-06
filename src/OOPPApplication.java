@@ -1,7 +1,6 @@
 import data.DBMS;
 import frames.hwan.Login;
-import frames.hwan.ManageEmp;
-import frames.hwan.NewMember;
+import frames.hwan.ManageEmployee;
 
 import javax.swing.*;
 
@@ -15,7 +14,7 @@ public class OOPPApplication {
         win1.setLocation(100, 200);
         win1.setVisible(true);
 
-        ManageEmp win3 = new ManageEmp("인사관리");
+        ManageEmployee win3 = new ManageEmployee("인사관리");
         win3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         win3.setSize(800, 700);
         win3.setLocation(100, 200);

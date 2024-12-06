@@ -16,10 +16,10 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel, dept;
     JButton check, b1, b2;
-    ManageEmp manageEmp;
+    ManageEmployee manageEmployee;
 
-    public NewMember(String title, ManageEmp Data) {
-        manageEmp = Data;
+    public NewMember(String title, ManageEmployee Data) {
+        manageEmployee = Data;
         setTitle(title);
         Container ct = getContentPane();
 
@@ -140,8 +140,8 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
             MessageDialog md = new MessageDialog(this, "계정 생성", true, "계정이 생성되었습니다.");
             md.setLocation(900, 300);
             md.setVisible(true);
-            manageEmp.FetchDatabase();
-            //회원가입 성공시 인사관리 창에서 새로고침 되게 코딩
+            this.dispose();
+            manageEmployee.FetchDatabase();
         }
     }
 }

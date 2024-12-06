@@ -1,7 +1,6 @@
 package frames.hwan;
 
 import data.DBMS;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -16,7 +15,7 @@ import static data.LoginData.dataStringInv;
 import static data.LoginData.gradeStringInv;
 import static data.LoginData.deptStringInv;
 
-public class ManageEmp extends JFrame implements ActionListener{
+public class ManageEmployee extends JFrame implements ActionListener{
     Vector<String> columnName;
     Vector<Vector<String>> rowData;
     JTable table;
@@ -32,7 +31,7 @@ public class ManageEmp extends JFrame implements ActionListener{
 
     JScrollPane tableSP;
 
-    public ManageEmp(String title) {
+    public ManageEmployee(String title) {
         setTitle(title);
         Container ct = getContentPane();
         ct.setLayout(new BorderLayout());
@@ -89,6 +88,7 @@ public class ManageEmp extends JFrame implements ActionListener{
         }
 
         deptString = new ArrayList<>();
+        deptString.add("에러");//0번째를 비우기 위해(리스트는 0번째가 있으므로)
         deptStringInv = new HashMap<>();
         try (ResultSet dept = DBMS.DB.executeQuery("select * from team_work.dept order by id")){
             while(dept.next()){
@@ -188,7 +188,8 @@ public class ManageEmp extends JFrame implements ActionListener{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        table.updateUI();
+        model.fireTableDataChanged(); //모델을 수정하지 않으면 오류가 발생함
+        table.updateUI(); //UI 업뎃이 있다면 해야하기 때문에
     }
 
     @Override
@@ -232,7 +233,12 @@ public class ManageEmp extends JFrame implements ActionListener{
             win2.setLocation(800, 200);
             win2.setVisible(true);
         } else{
-            //클릭한 사원 판매 목록 보여주기
+            Product_Employee win3 = new Product_Employee(rowData.get(table.getSelectedRow()).get(2),
+                    rowData.get(table.getSelectedRow()).get(0));
+            win3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            win3.setSize(400, 600);
+            win3.setLocation(800, 400);
+            win3.setVisible(true);
         }
     }
 }

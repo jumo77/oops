@@ -11,20 +11,20 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 public class UpdateMember extends JFrame implements ActionListener {
-    JTextField name, tel_number, salary, dept_id;
+    JTextField name, tel_number, salary;
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel, dept;
     JButton update, cancel, delete;
     Vector<String> rowData;
-    ManageEmp manageEmp;
+    ManageEmployee manageEmployee;
 
 
-    public UpdateMember(String title, Vector<String> rowData, ManageEmp manageEmp) {
+    public UpdateMember(String title, Vector<String> rowData, ManageEmployee manageEmployee) {
         setTitle(title);
         Container ct = getContentPane();
         this.rowData = rowData;
-        this.manageEmp = manageEmp;
+        this.manageEmployee = manageEmployee;
 
         ct.setLayout(new BorderLayout(0, 20));
         JPanel top = new JPanel();
@@ -112,7 +112,7 @@ public class UpdateMember extends JFrame implements ActionListener {
             MessageDialog md = new MessageDialog(this, "정보 변경", true, "정보가 변경되었습니다.");
             md.setLocation(900, 300);
             md.setVisible(true);
-            manageEmp.FetchDatabase();
+            manageEmployee.FetchDatabase();
             this.dispose();
         } else {
             try {
@@ -120,7 +120,7 @@ public class UpdateMember extends JFrame implements ActionListener {
                 MessageDialog md = new MessageDialog(this, "퇴사", true, "퇴사가 완료되었습니다");
                 md.setLocation(900, 300);
                 md.setVisible(true);
-                manageEmp.FetchDatabase();
+                manageEmployee.FetchDatabase();
                 this.dispose();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
