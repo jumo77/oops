@@ -2,6 +2,7 @@ package frames.hwan;
 
 import data.DBMS;
 import data.LoginData;
+import frames.jongh.MainPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,8 @@ public class Login extends JFrame implements ActionListener {
                         LoginData.name = rs.getString("emp_name");
                         LoginData.dept = rs.getInt("dept_id");
                         LoginData.grade = rs.getInt("emp_grade");
-                        //Product product = new Product();
+                        MainPage mp = new MainPage();
+                        mp.show();
                         this.dispose();
                     } else if (!password.equals(rs.getString("emp_password"))) {
                         MessageDialog md = new MessageDialog(this, "로그인 실패", true, "비밀번호가 일치하지 않습니다.");

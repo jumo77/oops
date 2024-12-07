@@ -1,6 +1,7 @@
 package frames.hwan;
 
 import data.DBMS;
+import data.LoginData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +36,7 @@ public class Product_Employee extends javax.swing.JFrame {
 
         try (ResultSet rs = DBMS.DB.executeQuery("select * from team_work.v_sell where seller_num = '"
                 + emp_num + "'")) {
-            deptName = ManageEmployee.deptString.get(rs.getInt("dept_id"));
+            deptName = LoginData.deptString.get(rs.getInt("dept_id"));
             while (rs.next()) {
                 Vector<String> row = new Vector<>();
                 product_name = rs.getString("product_name");

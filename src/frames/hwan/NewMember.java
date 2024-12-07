@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NewMember extends JFrame implements ActionListener { //회원가입은 인사관리 창에서 사용할 예정
-    JTextField companynumber, name, tel_number, salary, dept_id, empDate; //회원가입 전화번호를 넣을지 뺄지 고민
+    JTextField companynumber, name, tel_number, salary, empDate; //회원가입 전화번호를 넣을지 뺄지 고민
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel, dept;

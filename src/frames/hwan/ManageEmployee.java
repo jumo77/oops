@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static data.LoginData.dataStringInv;
-import static data.LoginData.gradeStringInv;
-import static data.LoginData.deptStringInv;
+import static data.LoginData.*;
 
 public class ManageEmployee extends JFrame implements ActionListener{
     Vector<String> columnName;
@@ -26,7 +24,6 @@ public class ManageEmployee extends JFrame implements ActionListener{
 
     String dataString[] = {"이름", "입사일", "사번", "직급", "부서명"};
 
-    static ArrayList<String> gradeString, deptString;
     String emp_name, emp_date, emp_num, emp_dept, emp_tel, emp_grade, emp_salary, emp_password;
 
     JScrollPane tableSP;
@@ -43,6 +40,8 @@ public class ManageEmployee extends JFrame implements ActionListener{
         ct.add(center, BorderLayout.CENTER);
         ct.add(bottom, BorderLayout.SOUTH);
         ct.add(right, BorderLayout.EAST);
+
+
 
         columnName = new Vector<>();
         columnName.add("사원명");
@@ -75,29 +74,6 @@ public class ManageEmployee extends JFrame implements ActionListener{
         tableSP = new JScrollPane(table);
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter); //sorter을 선언하고 테이블에 지정
-
-        gradeString = new ArrayList<>();
-        gradeStringInv = new HashMap<>();
-        try (ResultSet grade = DBMS.DB.executeQuery("select * from team_work.emp_grade order by id")) {
-            while (grade.next()) {
-                gradeString.add(grade.getString(2)); //직급을 입력받고(2번째 열)
-                gradeStringInv.put(grade.getString(2), Integer.parseInt(grade.getString(1))); //직급을 String으로 변환
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        deptString = new ArrayList<>();
-        deptString.add("에러");//0번째를 비우기 위해(리스트는 0번째가 있으므로)
-        deptStringInv = new HashMap<>();
-        try (ResultSet dept = DBMS.DB.executeQuery("select * from team_work.dept order by id")){
-            while(dept.next()){
-                deptString.add(dept.getString(2));
-                deptStringInv.put(dept.getString(2), Integer.parseInt(dept.getString(1)));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         FetchDatabase();
 
