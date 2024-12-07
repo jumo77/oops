@@ -87,8 +87,8 @@ public class MainPage extends JFrame implements ActionListener {
             win3.setLocation(100, 200);
             win3.setVisible(true);
         }
-
     }
+
     public void show() {
         mainFrame.setVisible(true);
     }
