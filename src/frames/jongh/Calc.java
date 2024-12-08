@@ -1,37 +1,33 @@
 package frames.jongh;
 
-import theme.ThemeLabel;
-import theme.ThemePanel;
-import theme.ThemeTextField;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class Calc {
-    private ThemePanel calPanel;
-    private ThemeLabel monthLabel;
+class Calc {
+    private JPanel calPanel;
+    private JLabel monthLabel;
     private int year, month;
     private final Map<String, List<Event>> events;
 
-    public Calc(ThemePanel parent) {
+    public Calc(JPanel parent) {
         events = new HashMap<>();
         Calendar cal = Calendar.getInstance();
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
 
-        calPanel = new ThemePanel();
+        calPanel = new JPanel();
         calPanel.setLayout(new GridLayout(7, 7));
         calPanel.setBounds(350, 50, 500, 400); // 캘린더 위치와 크기
         parent.add(calPanel);
 
-        ThemePanel topPanel = new ThemePanel();
+        JPanel topPanel = new JPanel(null);
         topPanel.setBounds(350, 20, 500, 30);
 
         JButton prevButton = new JButton("<");
         JButton nextButton = new JButton(">");
-        monthLabel = new ThemeLabel(getMonthYearLabel(), ThemeLabel.CENTER);
+        monthLabel = new JLabel(getMonthYearLabel(), JLabel.CENTER);
 
         prevButton.setBounds(0, 0, 50, 30);
         nextButton.setBounds(450, 0, 50, 30);
@@ -47,6 +43,8 @@ public class Calc {
 
         updateCalendar();
     }
+
+
 
     private String getMonthYearLabel() {
         return String.format("%d년 %02d월", year, month + 1);
@@ -71,7 +69,7 @@ public class Calc {
 
         String[] weekdays = {"일", "월", "화", "수", "목", "금", "토"};
         for (String weekday : weekdays) {
-            ThemeLabel label = new ThemeLabel(weekday, ThemeLabel.CENTER);
+            JLabel label = new JLabel(weekday, JLabel.CENTER);
             label.setFont(new Font("Arial", Font.BOLD, 14));
             calPanel.add(label);
         }
@@ -84,7 +82,7 @@ public class Calc {
 
 
         for (int i = 0; i < firstDayOfWeek; i++) {
-            calPanel.add(new ThemeLabel(""));
+            calPanel.add(new JLabel(""));
         }
 
 
@@ -103,7 +101,7 @@ public class Calc {
         int remainingCells = 7 - ((firstDayOfWeek + daysInMonth) % 7);
         if (remainingCells < 7) {
             for (int i = 0; i < remainingCells; i++) {
-                calPanel.add(new ThemeLabel(""));
+                calPanel.add(new JLabel(""));
             }
         }
 
@@ -130,23 +128,22 @@ public class Calc {
         }
         dialog.add(new JScrollPane(eventDisplay), BorderLayout.CENTER);
 
-        ThemePanel addPanel = new ThemePanel();
-        addPanel.setLayout(new GridLayout(6, 2));
-        ThemeTextField titleField = new ThemeTextField();
+        JPanel addPanel = new JPanel(new GridLayout(6, 2));
+        JTextField titleField = new JTextField();
         JTextArea descriptionArea = new JTextArea();
         JComboBox<String> priorityBox = new JComboBox<>(new String[]{"하", "중", "상"});
-        ThemeTextField startTimeField = new ThemeTextField("HH:mm");
-        ThemeTextField endTimeField = new ThemeTextField("HH:mm");
+        JTextField startTimeField = new JTextField("HH:mm");
+        JTextField endTimeField = new JTextField("HH:mm");
 
-        addPanel.add(new ThemeLabel("제목:"));
+        addPanel.add(new JLabel("제목:"));
         addPanel.add(titleField);
-        addPanel.add(new ThemeLabel("내용:"));
+        addPanel.add(new JLabel("내용:"));
         addPanel.add(new JScrollPane(descriptionArea));
-        addPanel.add(new ThemeLabel("중요도:"));
+        addPanel.add(new JLabel("중요도:"));
         addPanel.add(priorityBox);
-        addPanel.add(new ThemeLabel("시작 시간:"));
+        addPanel.add(new JLabel("시작 시간:"));
         addPanel.add(startTimeField);
-        addPanel.add(new ThemeLabel("종료 시간:"));
+        addPanel.add(new JLabel("종료 시간:"));
         addPanel.add(endTimeField);
 
         JButton saveButton = new JButton("저장");
