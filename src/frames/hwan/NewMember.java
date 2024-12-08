@@ -2,6 +2,7 @@ package frames.hwan;
 
 import data.DBMS;
 import data.LoginData;
+import theme.ThemeButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel, dept;
-    JButton check, b1, b2;
+    ThemeButton check, b1, b2;
     ManageEmployee manageEmployee;
 
     public NewMember(String title, ManageEmployee Data) {
@@ -38,7 +39,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
         p2.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel l2 = new JLabel("사번        :"); // ID 중복 체크 버튼을 없앨지 고민
         companynumber = new JTextField(8);
-        check = new JButton("사번 중복 체크");
+        check = new ThemeButton("사번 중복 체크");
         check.addActionListener(this);
         p2.add(l2);
         p2.add(companynumber);
@@ -92,8 +93,8 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
         ct.add(top, BorderLayout.CENTER);
 
         JPanel bottom = new JPanel();
-        b1 = new JButton("확인");
-        b2 = new JButton("취소");
+        b1 = new ThemeButton("확인");
+        b2 = new ThemeButton("취소");
         b1.addActionListener(this);
         b2.addActionListener(this);
         bottom.add(b1);

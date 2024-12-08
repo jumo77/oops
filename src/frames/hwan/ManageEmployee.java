@@ -1,6 +1,8 @@
 package frames.hwan;
 
 import data.DBMS;
+import theme.ThemeButton;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -20,7 +22,7 @@ public class ManageEmployee extends JFrame implements ActionListener{
     DefaultTableModel model;
     JTextField search;
     JComboBox searchComboBox, sortComboBox;
-    JButton newMember, cancel, updateMember, informMember;
+    ThemeButton newMember, cancel, updateMember, informMember;
 
     String dataString[] = {"이름", "입사일", "사번", "직급", "부서명"};
 
@@ -117,19 +119,19 @@ public class ManageEmployee extends JFrame implements ActionListener{
             }
         });
 
-        informMember = new JButton("판매 항목 보기"); //판매 항목 새 창 열기
+        informMember = new ThemeButton("판매 항목 보기"); //판매 항목 새 창 열기
         informMember.addActionListener(this);
         bottom.add(informMember);
 
-        updateMember = new JButton("수정"); //수정 가능한 창 새로 열기
+        updateMember = new ThemeButton("수정"); //수정 가능한 창 새로 열기
         updateMember.addActionListener(this);
         bottom.add(updateMember);
 
-        newMember = new JButton("회원 가입");
+        newMember = new ThemeButton("회원 가입");
         newMember.addActionListener(this);
         bottom.add(newMember);
 
-        cancel = new JButton("돌아가기");
+        cancel = new ThemeButton("돌아가기");
         cancel.addActionListener(this);
         bottom.add(cancel);
     }

@@ -23,7 +23,6 @@ public class Literals {
         for (JComponent j : js) {
             j.setBackground(Color.BLACK);
             j.setForeground(Color.WHITE);
-            j.setBorder(new LineBorder(Color.WHITE, 2, true));
             j.setFont(j.getFont().deriveFont(30.0f));
         }
     }

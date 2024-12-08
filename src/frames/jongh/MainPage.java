@@ -2,6 +2,7 @@ package frames.jongh;
 
 import data.LoginData;
 import frames.hwan.ManageEmployee;
+import theme.ThemeButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,16 +52,16 @@ public class MainPage extends JFrame implements ActionListener {
         JLabel menu = new JLabel("<<메뉴>>");
         menu.setBounds(140, 200, 300, 200);
 
-        JButton menuButton1 = new JButton("개발");
+        ThemeButton menuButton1 = new ThemeButton("개발");
         menuButton1.setBounds(20, 360, 300, 40);
 
-        JButton menuButton2 = new JButton("입/출금 신고 내역");
+        ThemeButton menuButton2 = new ThemeButton("입/출금 신고 내역");
         menuButton2.setBounds(20, 420, 300, 40);
 
-        JButton menuButton3 = new JButton("예산 승인 내역");
+        ThemeButton menuButton3 = new ThemeButton("예산 승인 내역");
         menuButton3.setBounds(20, 480, 300, 40);
 
-        JButton menuButton4 = new JButton("인사");
+        ThemeButton menuButton4 = new ThemeButton("인사");
         menuButton4.setBounds(20, 540, 300, 40);
         menuButton4.addActionListener(this);
 

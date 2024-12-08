@@ -3,6 +3,7 @@ package frames.jumo;
 import components.BudgetListItem;
 import data.DBMS;
 import data.Literals;
+import theme.ThemeButton;
 import theme.ThemeFrame;
 
 import javax.swing.*;
@@ -53,9 +54,8 @@ public class BudgetRequestFrame extends ThemeFrame implements ActionListener {
         }
         c.add(main);
 
-        JButton add = new JButton("예산 신고");
+        ThemeButton add = new ThemeButton("예산 신고");
         add.addActionListener(this);
-        add.setSize(200, 50);
         c.add(add);
 
         Literals.SET_THEME(main.getViewport());

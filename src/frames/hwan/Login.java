@@ -3,6 +3,7 @@ package frames.hwan;
 import data.DBMS;
 import data.LoginData;
 import frames.jongh.MainPage;
+import theme.ThemeButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 public class Login extends JFrame implements ActionListener {
     JTextField empNumber;
     JTextField passwd;
-    JButton b1, b2;
+    ThemeButton b1, b2;
     Container ct = getContentPane();
 
     public Login(String title) {
@@ -36,8 +37,8 @@ public class Login extends JFrame implements ActionListener {
         ct.add(l2);
         ct.add(passwd);
 
-        b1 = new JButton("로그인");
-        b2 = new JButton("취소");
+        b1 = new ThemeButton("로그인");
+        b2 = new ThemeButton("취소");
         b1.addActionListener(this);
         b2.addActionListener(this);
         b1.setBounds(410, 190, 80, 30);

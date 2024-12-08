@@ -1,5 +1,7 @@
 package frames.jongh;
 
+import theme.ThemeButton;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -17,7 +19,7 @@ class ProductMain extends JFrame implements ActionListener, MouseListener {
 
     JLabel NameLable, PriceLable, GroupLable;
     JTextField Product_Name, Product_Price, Group_Add, S_P_Name, S_P_Price, S_P_Group;
-    JButton Group_AddButton, Group_Remove, Add, Remove, Repair, S_Button;
+    ThemeButton Group_AddButton, Group_Remove, Add, Remove, Repair, S_Button;
     JComboBox dateoption;
     JScrollPane SP;
     int row;
@@ -58,18 +60,18 @@ class ProductMain extends JFrame implements ActionListener, MouseListener {
 
         dateoption = new JComboBox<>(new String[]{"오름차순","내림차순"});
 
-        S_Button =  new JButton("검색");
+        S_Button =  new ThemeButton("검색");
 
-        Group_AddButton = new JButton("분류 추가");
-        Group_Remove = new JButton("분류 삭제");
+        Group_AddButton = new ThemeButton("분류 추가");
+        Group_Remove = new ThemeButton("분류 삭제");
 
         Group_AddButton.addActionListener(this);
         Group_Remove.addActionListener(this);
         S_Button.addActionListener(this);
 
-        Add = new JButton("등록");
-        Remove = new JButton("삭제");
-        Repair = new JButton("수정");
+        Add = new ThemeButton("등록");
+        Remove = new ThemeButton("삭제");
+        Repair = new ThemeButton("수정");
 
         Add.addActionListener(this);
         Remove.addActionListener(this);

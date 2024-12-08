@@ -4,6 +4,7 @@ import components.RightArraganedLabel;
 import data.DBMS;
 import data.Literals;
 import frames.hwan.*;
+import theme.ThemeButton;
 import theme.ThemeFrame;
 import theme.ThemePanel;
 import theme.ThemeTextField;
@@ -59,7 +60,7 @@ public class CreateBudgetRequestFrame extends ThemeFrame implements ActionListen
 
         setSize(rr.getWidth()+rr.getX()+border ,350);
 
-        JButton submit = new JButton("예산 신고");
+        ThemeButton submit = new ThemeButton("예산 신고");
         submit.addActionListener(this);
 
         l.setBorder(new LineBorder(Color.BLACK, border));
@@ -70,7 +71,6 @@ public class CreateBudgetRequestFrame extends ThemeFrame implements ActionListen
         ll.add(l);      rr.add(r);
         ct.add(ll);     ct.add(rr);
 
-        submit.setSize(200, 50);
         submit.setLocation(getWidth() - submit.getWidth() - border,
                 getHeight() - submit.getHeight() - border - Literals.BUGGY_H);
         ct.add(submit);

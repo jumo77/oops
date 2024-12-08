@@ -2,6 +2,7 @@ package frames.hwan;
 
 import data.DBMS;
 import data.LoginData;
+import theme.ThemeButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class UpdateMember extends JFrame implements ActionListener {
     JPasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel, dept;
-    JButton update, cancel, delete;
+    ThemeButton update, cancel, delete;
     Vector<String> rowData;
     ManageEmployee manageEmployee;
 
@@ -81,9 +82,9 @@ public class UpdateMember extends JFrame implements ActionListener {
         ct.add(top, BorderLayout.CENTER);
 
         JPanel bottom = new JPanel();
-        update = new JButton("확인");
-        cancel = new JButton("취소");
-        delete = new JButton("퇴사");
+        update = new ThemeButton("확인");
+        cancel = new ThemeButton("취소");
+        delete = new ThemeButton("퇴사");
         update.addActionListener(this);
         cancel.addActionListener(this);
         delete.addActionListener(this);

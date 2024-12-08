@@ -1,5 +1,7 @@
 package frames.jongh;
 
+import theme.ThemeButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -25,8 +27,8 @@ class Calc {
         JPanel topPanel = new JPanel(null);
         topPanel.setBounds(350, 20, 500, 30);
 
-        JButton prevButton = new JButton("<");
-        JButton nextButton = new JButton(">");
+        ThemeButton prevButton = new ThemeButton("<");
+        ThemeButton nextButton = new ThemeButton(">");
         monthLabel = new JLabel(getMonthYearLabel(), JLabel.CENTER);
 
         prevButton.setBounds(0, 0, 50, 30);
@@ -87,7 +89,7 @@ class Calc {
 
 
         for (int day = 1; day <= daysInMonth; day++) {
-            JButton dayButton = new JButton(String.valueOf(day));
+            ThemeButton dayButton = new ThemeButton(String.valueOf(day));
             String date = String.format("%d-%02d-%02d", year, month + 1, day);
 
             dayButton.addActionListener(e -> openEventDialog(date));
@@ -146,7 +148,7 @@ class Calc {
         addPanel.add(new JLabel("종료 시간:"));
         addPanel.add(endTimeField);
 
-        JButton saveButton = new JButton("저장");
+        ThemeButton saveButton = new ThemeButton("저장");
         saveButton.addActionListener(e -> {
             String title = titleField.getText();
             String description = descriptionArea.getText();
