@@ -4,6 +4,9 @@ import components.RightArraganedLabel;
 import data.DBMS;
 import data.Literals;
 import frames.hwan.*;
+import theme.ThemeFrame;
+import theme.ThemePanel;
+import theme.ThemeTextField;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,62 +20,59 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateBudgetRequestFrame extends JFrame implements ActionListener {
+public class CreateBudgetRequestFrame extends ThemeFrame implements ActionListener {
 
-    private final JTextField reason;
+    private final ThemeTextField reason;
     private final JFormattedTextField amount;
     private final JComboBox<String> dept;
     private final String[] depts;
 
-    public CreateBudgetRequestFrame(String title){
+    public CreateBudgetRequestFrame(){
         super();
-        depts = getDept();
-        setBackground(Color.BLACK);
+
+        setTitle("예산 신고");
+        
+        int border = Literals.BORDER;
+
         Container ct = getContentPane();
         ct.setLayout(null);
         ct.setBackground(Color.BLACK);
-        ct.setName(title);
         RightArraganedLabel _amount = new RightArraganedLabel("입출금 금액");
         amount = new JFormattedTextField(new NumberFormatter(NumberFormat.getIntegerInstance()));
         RightArraganedLabel _reason = new RightArraganedLabel("사용 목적");
-        reason = new JTextField();
+        reason = new ThemeTextField();
         RightArraganedLabel _dept = new RightArraganedLabel("사용 부서");
+        depts = getDept();
         dept = new JComboBox<>(depts);
-        JPanel l = new JPanel(); JPanel r = new JPanel();
-        JPanel ll = new JPanel();JPanel rr = new JPanel();
+        ThemePanel l = new ThemePanel(); ThemePanel r = new ThemePanel();
+        ThemePanel ll = new ThemePanel();ThemePanel rr = new ThemePanel();
         GridLayout g = new GridLayout(3, 1, Literals.H_GAP, Literals.V_GAP);
         l.setLayout(g); r.setLayout(g);
         g = new GridLayout(1, 1, Literals.H_GAP, Literals.V_GAP);
         ll.setLayout(g); rr.setLayout(g);
         l.setBounds(0,0,Literals.LABEL_PANEL_WIDTH,Literals.TEXT_FIELD_HEIGHT*3);
         r.setBounds(Literals.LABEL_PANEL_WIDTH + 50,0,Literals.FORM_PANEL_WIDTH,Literals.TEXT_FIELD_HEIGHT*3);
-        ll.setBounds(Literals.BORDER, Literals.BORDER,
-                l.getWidth() + Literals.BORDER , l.getHeight() + Literals.BORDER);
-        rr.setBounds(l.getWidth()+ Literals.BORDER*3, Literals.BORDER,
-                r.getWidth() + Literals.BORDER , r.getHeight() + Literals.BORDER);
+        ll.setBounds(border, border,
+                l.getWidth() + border , l.getHeight() + border);
+        rr.setBounds(l.getWidth()+ border*3, border,
+                r.getWidth() + border , r.getHeight() + border);
 
-        Literals.PLACE_CENTER(this, rr.getWidth()+rr.getX()+Literals.BORDER ,350);
+        setSize(rr.getWidth()+rr.getX()+border ,350);
 
         JButton submit = new JButton("예산 신고");
         submit.addActionListener(this);
 
-        //!!
-
-        Literals.SET_THEME(submit, _amount, _reason, _dept, amount, reason, dept, l, r, ll, rr);
-        Literals.REMOVE_BORDER(_amount, _reason, _dept);
-
-        //!!
-
-
-        l.setBorder(new LineBorder(Color.BLACK, Literals.BORDER));
-        r.setBorder(new LineBorder(Color.BLACK, Literals.BORDER));
+        l.setBorder(new LineBorder(Color.BLACK, border));
+        r.setBorder(new LineBorder(Color.BLACK, border));
         l.add(_dept);   r.add(dept);
         l.add(_amount); r.add(amount);
         l.add(_reason); r.add(reason);
         ll.add(l);      rr.add(r);
         ct.add(ll);     ct.add(rr);
 
-        submit.setBounds(rr.getWidth()+rr.getX()-200, getHeight()-100, 200, 50);
+        submit.setSize(200, 50);
+        submit.setLocation(getWidth() - submit.getWidth() - border,
+                getHeight() - submit.getHeight() - border - Literals.BUGGY_H);
         ct.add(submit);
     }
 
@@ -85,7 +85,8 @@ public class CreateBudgetRequestFrame extends JFrame implements ActionListener {
         }
         else {
             try {
-                DBMS.DB.executeQuery("insert into budget_request(dept, amount, reason) values("+dept.getSelectedIndex()+", "+Integer.parseInt(amount.getText())+", "+", "+reason.getText()+")");
+                DBMS.DB.executeQuery("insert into budget_request(dept, amount, reason) values("
+                        +dept.getSelectedIndex()+", "+Integer.parseInt(amount.getText())+", "+", "+reason.getText()+")");
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

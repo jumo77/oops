@@ -8,6 +8,7 @@ public class Literals {
     public static final int H_GAP = 1;
     public static final int V_GAP = 10;
     public static final int BORDER = 10;
+    public static final int BUGGY_H = 30;
 
     public static final int LABEL_PANEL_WIDTH = 250;
     public static final int FORM_PANEL_WIDTH = 600;
@@ -19,35 +20,11 @@ public class Literals {
     public static final String DB_USERPW = "1234";
 
     public static void SET_THEME(JComponent... js) {
-        try {
-
         for (JComponent j : js) {
-            j.setBackground(new Color(
-                    Color.WHITE.getRed() - j.getBackground().getRed(),
-                    Color.WHITE.getGreen() - j.getBackground().getGreen(),
-                    Color.WHITE.getBlue() - j.getBackground().getBlue()
-            ));
-            j.setForeground(new Color(
-                    Color.WHITE.getRed() - j.getForeground().getRed(),
-                    Color.WHITE.getGreen() - j.getForeground().getGreen(),
-                    Color.WHITE.getBlue() - j.getForeground().getBlue()
-            ));
+            j.setBackground(Color.BLACK);
+            j.setForeground(Color.WHITE);
             j.setBorder(new LineBorder(Color.WHITE, 2, true));
             j.setFont(j.getFont().deriveFont(30.0f));
         }
-        }catch (Exception e){
-
-        }
-    }
-
-    public static void REMOVE_BORDER(JLabel... js){
-        for (JLabel j : js){
-            j.setBorder(null);
-        }
-    }
-
-    public static void PLACE_CENTER(JFrame j, int width, int height){
-        j.setSize(width, height);
-        j.setLocationRelativeTo(null);
     }
 }

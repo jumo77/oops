@@ -3,38 +3,43 @@ package components;
 import data.DBMS;
 import data.Literals;
 import data.LoginData;
+import theme.ThemeLabel;
+import theme.ThemePanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class BudgetListItem extends JPanel implements ActionListener {
+public class BudgetListItem extends ThemePanel implements ActionListener {
 
     JCheckBox resultSetter;
     int id;
 
+    public static int width = 650;
+    public static int height = 50;
+
     public BudgetListItem(int _id, String _dept, String _amount, String _reason, String _date, String _result, boolean a) {
 
         id = _id;
-
         setLayout(null);
+        setBounds(0,0,width, height);
 
-        JLabel dept = new JLabel(_dept);
-        JLabel amount = new JLabel(_amount);
-        JLabel reason = new JLabel(_reason);
-        JLabel date = new JLabel(_date);
-        JLabel result = new JLabel(_result);
-        dept.setHorizontalAlignment(JLabel.CENTER);
-        amount.setHorizontalAlignment(JLabel.CENTER);
-        reason.setHorizontalAlignment(JLabel.CENTER);
-        date.setHorizontalAlignment(JLabel.CENTER);
-        result.setHorizontalAlignment(JLabel.CENTER);
-        dept.setBounds(0, 0, 50, 30);
-        amount.setBounds(50, 0, 100, 30);
-        reason.setBounds(150, 0, 150, 30);
-        date.setBounds(300, 0, 100, 30);
-        result.setBounds(400, 0, 20, 30);
+        ThemeLabel dept = new ThemeLabel(_dept);
+        ThemeLabel amount = new ThemeLabel(_amount);
+        ThemeLabel reason = new ThemeLabel(_reason);
+        ThemeLabel date = new ThemeLabel(_date);
+        ThemeLabel result = new ThemeLabel(_result);
+        dept.setHorizontalAlignment(ThemeLabel.CENTER);
+        amount.setHorizontalAlignment(ThemeLabel.RIGHT);
+        reason.setHorizontalAlignment(ThemeLabel.CENTER);
+        date.setHorizontalAlignment(ThemeLabel.CENTER);
+        result.setHorizontalAlignment(ThemeLabel.CENTER);
+        dept.setBounds(0, 0, 100, height);
+        amount.setBounds(dept.getX()+dept.getWidth(), 0, 100, height);
+        reason.setBounds(amount.getX()+amount.getWidth(), 0, 200, height);
+        date.setBounds(reason.getX()+reason.getWidth(), 0, 150, height);
+        result.setBounds(date.getX()+date.getWidth(), 0, 100, height);
 
         resultSetter = new JCheckBox();
         if (Objects.equals(_result, "승인")) {
@@ -44,21 +49,19 @@ public class BudgetListItem extends JPanel implements ActionListener {
             resultSetter.addActionListener(this);
         }
 
-        JPanel line = new JPanel();
-        line.setBounds(0, 31, 420, 31);
+        ThemePanel line = new ThemePanel();
+        line.setBounds(0, height, width, height);
 
-        Literals.SET_THEME(dept, amount, reason, date, result, resultSetter, line);
-
-        this.add(dept);
-        this.add(amount);
-        this.add(reason);
-        this.add(date);
-        if (LoginData.dept == "총무" && a) {
-            this.add(resultSetter);
+        add(dept);
+        add(amount);
+        add(reason);
+        add(date);
+        if (Objects.equals(LoginData.dept, "총무") && a) {
+            add(resultSetter);
         } else {
-            this.add(result);
+            add(result);
         }
-        this.add(line);
+        add(line);
     }
 
     public BudgetListItem(int _id, String _dept, String _amount, String _reason, String _date, String _result) {

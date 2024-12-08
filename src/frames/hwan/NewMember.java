@@ -1,6 +1,10 @@
 package frames.hwan;
 
 import data.DBMS;
+import theme.ThemeLabel;
+import theme.ThemePanel;
+import theme.ThemePasswordField;
+import theme.ThemeTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class NewMember extends JFrame implements ActionListener { //회원가입은 인사관리 창에서 사용할 예정
-    JTextField companynumber, name, tel_number, salary, dept_id; //회원가입 전화번호를 넣을지 뺄지 고민
-    JPasswordField pwd;
+    ThemeTextField companynumber, name, tel_number, salary, dept_id; //회원가입 전화번호를 넣을지 뺄지 고민
+    ThemePasswordField pwd;
     String code[] = {"010", "070", "02", "031", "032"};
     JComboBox tel;
     JButton check, b1, b2;
@@ -21,13 +25,13 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
         Container ct = getContentPane();
 
         ct.setLayout(new BorderLayout(0, 20));
-        JPanel top = new JPanel();
+        ThemePanel top = new ThemePanel();
         top.setLayout(new GridLayout(6, 1));
-        JPanel p1 = new JPanel();
+        ThemePanel p1 = new ThemePanel();
         p1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel l1 = new JLabel("사번        :"); // ID 중복 체크 버튼을 없앨지 고민
-        companynumber = new JTextField(8);
+        ThemeLabel l1 = new ThemeLabel("사번        :"); // ID 중복 체크 버튼을 없앨지 고민
+        companynumber = new ThemeTextField(8);
         check = new JButton("사번 중복 체크");
         check.addActionListener(this);
         p1.add(l1);
@@ -36,38 +40,38 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
 
         Panel p2 = new Panel();
         p2.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l2 = new JLabel("Password :");
-        pwd = new JPasswordField(20);
+        ThemeLabel l2 = new ThemeLabel("Password :");
+        pwd = new ThemePasswordField(20);
         p2.add(l2);
         p2.add(pwd);
 
-        JPanel p3 = new JPanel();
+        ThemePanel p3 = new ThemePanel();
         p3.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l3 = new JLabel("이름       :");
-        name = new JTextField(8);
+        ThemeLabel l3 = new ThemeLabel("이름       :");
+        name = new ThemeTextField(8);
         p3.add(l3);
         p3.add(name);
 
-        JPanel p4 = new JPanel();
+        ThemePanel p4 = new ThemePanel();
         p4.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l4 = new JLabel("연락처     :");
+        ThemeLabel l4 = new ThemeLabel("연락처     :");
         tel = new JComboBox(code);
-        tel_number = new JTextField(10);
+        tel_number = new ThemeTextField(10);
         p4.add(l4);
         p4.add(tel);
         p4.add(tel_number);
 
-        JPanel p5 = new JPanel();
+        ThemePanel p5 = new ThemePanel();
         p5.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l5 = new JLabel("연봉(단위 만) :");
-        salary = new JTextField(10);
+        ThemeLabel l5 = new ThemeLabel("연봉(단위 만) :");
+        salary = new ThemeTextField(10);
         p5.add(l5);
         p5.add(salary);
 
-        JPanel p6 = new JPanel();
+        ThemePanel p6 = new ThemePanel();
         p6.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel l6 = new JLabel("부서명   :");
-        dept_id = new JTextField(10);
+        ThemeLabel l6 = new ThemeLabel("부서명   :");
+        dept_id = new ThemeTextField(10);
         p6.add(l6);
         p6.add(dept_id);
 
@@ -80,7 +84,7 @@ public class NewMember extends JFrame implements ActionListener { //회원가입
 
         ct.add(top, BorderLayout.CENTER);
 
-        JPanel bottom = new JPanel();
+        ThemePanel bottom = new ThemePanel();
         b1 = new JButton("확인");
         b2 = new JButton("취소");
         b1.addActionListener(this);

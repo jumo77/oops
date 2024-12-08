@@ -1,6 +1,8 @@
 package frames.hwan;
 
 import data.DBMS;
+import theme.ThemeLabel;
+import theme.ThemeTextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,23 +12,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login extends JFrame implements ActionListener {
-    JTextField empnumber;
-    JTextField passwd;
+    ThemeTextField empnumber;
+    ThemeTextField passwd;
     JButton b1, b2;
     Container ct = getContentPane();
 
     public Login(String title) {
         setTitle(title);
         ct.setLayout(null);
-        JLabel l1 = new JLabel("사번 :");
-        empnumber = new JTextField(8);
+        ThemeLabel l1 = new ThemeLabel("사번 :");
+        empnumber = new ThemeTextField(8);
         l1.setBounds(400, 70, 70, 30);
         empnumber.setBounds(490, 70, 120, 30);
         ct.add(l1);
         ct.add(empnumber);
 
-        JLabel l2 = new JLabel("비밀번호 :");
-        passwd = new JTextField(20);
+        ThemeLabel l2 = new ThemeLabel("비밀번호 :");
+        passwd = new ThemeTextField(20);
         l2.setBounds(400, 110, 70, 30);
         passwd.setBounds(490, 110, 120, 30);
         ct.add(l2);

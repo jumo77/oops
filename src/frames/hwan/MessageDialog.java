@@ -1,5 +1,8 @@
 package frames.hwan;
 
+import theme.ThemeLabel;
+import theme.ThemePanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,11 +16,11 @@ public class MessageDialog extends JDialog implements ActionListener {
         setBounds(parent.getX() + parent.getWidth() / 2 - 50,
                 parent.getY() + parent.getHeight()/2 -50,
                 100, 100);
-        JPanel pc = new JPanel();
-        JLabel label = new JLabel(msg);
+        ThemePanel pc = new ThemePanel();
+        ThemeLabel label = new ThemeLabel(msg);
         pc.add(label);
         add(pc, BorderLayout.CENTER);
-        JPanel ps = new JPanel();
+        ThemePanel ps = new ThemePanel();
         ok = new JButton("OK");
         ok.addActionListener(this);
         ps.add(ok);

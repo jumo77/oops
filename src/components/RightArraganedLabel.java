@@ -1,12 +1,12 @@
 package components;
 
-import javax.swing.*;
+import theme.ThemeLabel;
 
-public class RightArraganedLabel extends JLabel {
+public class RightArraganedLabel extends ThemeLabel {
 
     public RightArraganedLabel(String content){
         super(content);
-        this.setHorizontalAlignment(JLabel.RIGHT);
+        this.setHorizontalAlignment(ThemeLabel.RIGHT);
     }
 
 }
