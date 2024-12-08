@@ -58,14 +58,22 @@ public class MainPage extends JFrame implements ActionListener {
         menuButton1.setActionCommand("개발");
         menuButton1.addActionListener(this);
 
-        JButton menuButton2 = new JButton("입/출금 신고 내역");
+        JButton menuButton2 = new JButton("예산 신청");
         menuButton2.setBounds(20, 420, 300, 40);
 
-        JButton menuButton3 = new JButton("예산 승인 내역");
+        JButton menuButton3 = new JButton("예산 관리");
         menuButton3.setBounds(20, 480, 300, 40);
 
+        JButton menuButton5 = new JButton("매출");
+        menuButton5.setBounds(20, 540, 300, 40);
+
+        JButton menuButton6 = new JButton("분기별 보고서");
+        menuButton6.setBounds(20, 600, 300, 40);
+
+
+
         menuButton4 = new JButton("인사");
-        menuButton4.setBounds(20, 540, 300, 40);
+        menuButton4.setBounds(20, 660, 300, 40);
         menuButton4.setActionCommand("인사");
         menuButton4.addActionListener(this);
 
@@ -83,6 +91,8 @@ public class MainPage extends JFrame implements ActionListener {
         mainPanel.add(menuButton2);
         mainPanel.add(menuButton3);
         mainPanel.add(menuButton4);
+        mainPanel.add(menuButton5);
+        mainPanel.add(menuButton6);
         mainPanel.add(menu);
         mainFrame.add(mainPanel);
 
@@ -113,24 +123,36 @@ public class MainPage extends JFrame implements ActionListener {
                 win3.setLocation(100, 200);
                 win3.setVisible(true);
 
-                // 버튼 비활성화
-                menuButton4.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(mainFrame,
                         "열람할 수 있는 권한이 없습니다.",
                         "권한 없음",
                         JOptionPane.WARNING_MESSAGE);
+
             }
         }
         if ("개발".equals(actionCommand)) {
             Product productWindow = new Product("개발 관리");
             productWindow.show();
         }
-        if ("예산 승인 내역".equals(actionCommand)) {
+        if ("예산 신청".equals(actionCommand)) {
             // 예산 승인 내역 버튼의 동작 추가
         }
-        if ("입/출금 신고 내역".equals(actionCommand)) {
-            // 입/출금 신고 내역 버튼의 동작 추가
+        if(LoginData.grade == 7) {
+            if ("예산 관리".equals(actionCommand)) {
+                // 입/출금 신고 내역 버튼의 동작 추가
+            }
+            if ("매출".equals(actionCommand)) {
+
+            }
+            if ("분기별 보고서".equals(actionCommand)) {
+
+            }
+        } else{
+            JOptionPane.showMessageDialog(mainFrame,
+                    "열람할 수 있는 권한이 없습니다.",
+                    "권한 없음",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
