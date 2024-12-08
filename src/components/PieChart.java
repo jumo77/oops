@@ -3,11 +3,14 @@ package components;
 import data.DBMS;
 import data.Literals;
 import data.mpo.Sales;
+import frames.jumo.Report;
 import theme.ThemeButton;
 import theme.ThemeLabel;
 import theme.ThemePanel;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,22 +20,24 @@ import java.util.List;
 public class PieChart extends ThemePanel {
 
     private final String table;
-    private final List<String> groups = new ArrayList<>();
     private final List<Sales> salesList = new ArrayList<>();
 
     public static final int W = 500, H = 700;
 
-    public PieChart(String title, String _table, String... _groups) {
+    public PieChart(String title, String _table) {
         super();
         table = _table;
-        groups.addAll(Arrays.asList(_groups));
         setSize(W, H);
-        ThemeButton l = new ThemeButton(title);
-        l.setSize(getWidth(), Literals.TEXT_FIELD_HEIGHT);
-        l.setLocation(0, getHeight() - l.getHeight());
-        l.setHorizontalAlignment(ThemeLabel.CENTER);
-        l.setVerticalAlignment(ThemeLabel.CENTER);
-        add(l);
+        ThemeButton button = new ThemeButton(title);
+        button.setSize(getWidth(), Literals.TEXT_FIELD_HEIGHT);
+        button.setLocation(0, getHeight() - button.getHeight());
+        button.setHorizontalAlignment(ThemeLabel.CENTER);
+        button.setVerticalAlignment(ThemeLabel.CENTER);
+        button.addActionListener(e -> {
+            Report f = new Report(table);
+            f.show();
+        });
+        add(button);
     }
 
     @Override
@@ -40,21 +45,11 @@ public class PieChart extends ThemePanel {
         super.paintComponent(g);
         int diameter = W, startAngle = 0, total;
 
-        StringBuilder groupBy = new StringBuilder();
-        groupBy.append(" group by ");
-        if (!groups.isEmpty()) {
-            for (String group : groups) {
-                groupBy.append(group);
-                groupBy.append(",");
-            }
-        }
         try {
             ResultSet r = DBMS.DB.executeQuery(
-                    "select year(date) as year, quarter(date) as quarter, sum(product_price) as sum from " + table
-                            + groupBy + "year(date), quarter(date);");
+                    "select * from " + table+" ; ");
             while (r.next()) {
-                salesList.add(new Sales(r.getInt("year") + "/"
-                        + r.getInt("quarter"), r.getInt("sum")));
+                salesList.add(new Sales(r.getString("placeholder"), r.getInt("sum")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

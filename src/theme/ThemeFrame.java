@@ -10,6 +10,6 @@ public class ThemeFrame extends JFrame {
         c.setLayout(null);
         c.setBackground(Color.BLACK);
         c.setForeground(Color.WHITE);
-        setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 }

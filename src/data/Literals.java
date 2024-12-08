@@ -26,4 +26,9 @@ public class Literals {
             j.setFont(j.getFont().deriveFont(30.0f));
         }
     }
+
+    public static void PLACE_CENTER(JFrame j, int width, int height){
+        j.setSize(width, height);
+        j.setLocationRelativeTo(null);
+    }
 }
